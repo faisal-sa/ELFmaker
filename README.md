@@ -25,4 +25,10 @@ indicates how signed numbers should be stored in memory (in modren processors it
 there is only one version of the standard till date so 
 0x01 for version 1
 
-...tbc
+### ABI:
+ABI is Application binary interface, it is a set of specification on how programs talk to each other on binary level, a widely used ABI here is System V ABI
+0x00 for System V ABI
+
+### ABI version:
+version of the standard, in case of System V ABI there is only one version
+0x0
