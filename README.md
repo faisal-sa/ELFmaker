@@ -19,6 +19,7 @@ indicates which architecture the file is intended for 64-bit or 32-bit
 indicates how signed numbers should be stored in memory (in modren processors it is always 2's complement), and what type of [endianness](https://youtu.be/LxvFb63OOs8?si=O6m39i7gIhJzcwnO) the machine is you are running the program on, x86 and x86_64 machines are little endian
 
 0x01 for little endian
+
 0x02 for big endian
 
 ### ELF version:
@@ -38,28 +39,85 @@ version of the standard, in case of System V ABI there is only one version
 
 ### Type 
 there are mainly 4 types of elf files
+
 -Relocatable files: object files, not linked yet
+
 -executable file (fixed address): executable file but they are loaded at a fixed prespecified address in memory, this is not prefered and usually not used
+
 -Shared library: these are files that contain common functionality that many programs can load share at the same time (similar to DLL in windows)
--position-independent executable(PIE): executable file with a relative prespecified address to be loaded in so the kernel can choose where to load it, this is prefered to use as it provide more security of it's use of [ALSR](https://en.wikipedia.org/wiki/Address_space_layout_randomization)
+
+-position-independent executable(PIE): executable file with a relative prespecified address to be loaded in so the kernel can choose where to load it, this is prefered to use as it provide more security of 
+it's use of [ALSR](https://en.wikipedia.org/wiki/Address_space_layout_randomization)
+
 -Core dump: these are files produced by the kernel when a crash happens, they take a snapshot of the memory layout of a program for debugging purposes
 
 0x01 for relocatable files
+
 0x02 for fixed virtual address executables
+
 0x03 for Position independent executable or shared library
+
 0x04 for core dump
 
 ### Machine 
 the architecture of the machine you are on
+
 0x3E for x86_64
+
 0xB7 for arm64
 
 ### ISA version
 there is only one
+
 0x01 for 1
 
 ### Entery point address
 this is the relative virtual address of the program in memory where main() 
 
-###
+### Start of the program header
+this specifies the offset at which the ELF header finish, and Program header begins, the ELF header is usually 64byte long
+
+0x40 for 64 byte offset
+
+### Start of section headers
+this specifies the offset at which program section headers table start example of sections are
+
+.text
+
+.data
+
+.bss
+
+...etc
+
+### Flags
+specifies flags that effects cpu operation, Unused in x86_64
+
+0x00 for no flags
+
+### header size
+ELF header size is usually 64byte long for 64bit files
+
+0x40 for 64byte
+
+### program header entry size
+usually 56 byte long
+
+0x38 for 56 byte 
+
+### number of program header enteries
+
+### section header entry size
+similar to program header entry size but 64 byte long
+
+0x40 for 64 byte long
+
+### Number of section headers
+how many section headers entries are there
+
+
+### Section Header String Table Index
+String table is a special section in ELF that contains the names of all headers, and this specifies where the index of section header in that table?
+
+
 
